@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:streaming_app/constant.dart';
 import 'package:streaming_app/model/movie_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:streaming_app/nav_bar/movies/component/movie_details.dart';
 
 // ignore: must_be_immutable
 class MovieCarousel extends StatefulWidget {
@@ -19,15 +20,22 @@ class _MovieCarouselState extends State<MovieCarousel> {
     return CarouselSlider.builder(
         itemCount: widget.movieList.length,
         itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: CachedNetworkImage(
-                width: double.infinity,
-                fit: BoxFit.fill,
-                imageUrl:
-                    kImage + widget.movieList[itemIndex].posterPath.toString(),
-                placeholder: (context, url) => spinkit,
-                errorWidget: (context, url, error) => Icon(Icons.error),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Movie_details(
+                        movie_model: widget.movieList[itemIndex])));
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: CachedNetworkImage(
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+                  imageUrl: kImage +
+                      widget.movieList[itemIndex].posterPath.toString(),
+                  placeholder: (context, url) => spinkit,
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
               ),
             ),
         options: CarouselOptions(

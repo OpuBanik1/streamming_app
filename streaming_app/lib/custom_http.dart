@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:streaming_app/model/tv_model.dart';
 import 'package:streaming_app/model/videos_model.dart';
 
+import 'model/cast_model.dart';
+
 enum MovieType { now_playing, popular, top_rated, upComing, similar }
 
 enum TvType { on_the_air, airing_today, popular, top_rated, similar }
@@ -145,6 +147,70 @@ class Custom_http {
           videoList.add(video_model);
         }
         return videoList;
+      } else {
+        throw (Text('No movie found'));
+      }
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  static Future<List<CastModel>> getCasts(int id, ProgramType type) async {
+    List<CastModel> castList = [];
+    CastModel castModel;
+
+    String link = '';
+    if (type == ProgramType.movie) {
+      link = baseUrl + id.toString() + kcast;
+    } else if (type == ProgramType.tv) {
+      link = tvBase + id.toString() + kcast;
+    }
+    try {
+      var response = await http
+          .get(Uri.parse(link + '?api_key=9d36bba22caf86253e8ff64fec79afd3'));
+      var data = jsonDecode(response.body);
+      // print('wwwwwwwwwwwwwwwwwwwwwwwwwwwww $type\n$data');
+
+      if (response.statusCode == 200) {
+        for (var i in data['cast']) {
+          castModel = CastModel.fromJson(i);
+
+          castList.add(castModel);
+        }
+        return castList;
+      } else {
+        throw (Text('No cast found'));
+      }
+    } catch (e) {
+      throw (Text('problem image found'));
+    }
+  }
+
+  static Future<List<Movie_model>> search(String query) async {
+    List<Movie_model> movieList = [];
+    Movie_model movie_model;
+    String searchUrl = 'https://api.themoviedb.org/3/search/movie?query=$query';
+
+    const token =
+        'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZDM2YmJhMjJjYWY4NjI1M2U4ZmY2NGZlYzc5YWZkMyIsInN1YiI6IjY0NThhMmMyNmFhOGUwMDBlNGJjODcyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.tRENbIJeNoIzYTKVF91TSibZkaYtRvdKmAyp13vI_uA';
+    // print('aaaaaaaaaaaaaaaaaaaaaaa $query');
+    try {
+      var response = await http.get(Uri.parse(searchUrl), headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      });
+      var data = jsonDecode(response.body);
+      print('wwwwwwwwwwwwwwwwwwwwwwwwwwwww $data');
+
+      if (response.statusCode == 200) {
+        for (var i in data['results']) {
+          movie_model = Movie_model.fromJson(i);
+
+          movieList.add(movie_model);
+        }
+        print("aaaaaaa ${movieList.length}");
+        return movieList;
       } else {
         throw (Text('No movie found'));
       }

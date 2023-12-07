@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "710465567522",
+    "project_id": "streaming-app-login",
+    "storage_bucket": "streaming-app-login.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710465567522:android:a3e380c1d4ecc520b8c37b",
+        "android_client_info": {
+          "package_name": "com.example.streaming_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710465567522-sa8247pr75cojp9ogt8ckvdbufvcm40r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.streaming_app",
+            "certificate_hash": "432b848ead79839a522a70757500593aba0dde1c"
+          }
+        },
+        {
+          "client_id": "710465567522-33erqk0i99jq0mtht1bam94gvgq0elmm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXjEchI0r4fW8pJofghl7tYTmTMQStiDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710465567522-33erqk0i99jq0mtht1bam94gvgq0elmm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

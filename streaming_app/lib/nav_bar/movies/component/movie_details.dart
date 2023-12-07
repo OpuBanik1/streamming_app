@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:streaming_app/compontent/cast.dart';
 import 'package:streaming_app/constant.dart';
 import 'package:streaming_app/custom_http.dart';
 import 'package:streaming_app/model/movie_model.dart';
 import 'package:streaming_app/model/videos_model.dart';
 import 'package:streaming_app/nav_bar/movies/component/movie_category.dart';
+import 'package:streaming_app/reviews.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -107,7 +109,31 @@ class Movie_details extends StatelessWidget {
                 style: TextStyle(color: Colors.grey, fontSize: 18),
               ),
               SizedBox(
-                height: 5,
+                height: 15,
+              ),
+              Text(
+                "Review",
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              Container(
+                height: 100,
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Reviews()));
+                    },
+                    icon: Icon(
+                      Icons.reviews,
+                      size: 50,
+                    )),
+              ),
+              Text("Cast", style: TextStyle(fontSize: 20, color: Colors.white)),
+              SizedBox(
+                height: 200,
+                child: Cast(
+                  id: movie_model.id ?? 0,
+                  type: ProgramType.movie,
+                ),
               ),
               Text(
                 'Similar Movies',
@@ -118,7 +144,22 @@ class Movie_details extends StatelessWidget {
                   child: MovieCategory(
                     movieType: MovieType.similar,
                     movie_id: movie_model.id ?? 0,
-                  ))
+                  )),
+              // Stack(
+              //   children: [
+              //     Positioned(
+              //         top: 600,
+              //         bottom: 80,
+              //         right: 20,
+              //         child: Container(
+              //           height: 80,
+              //           width: 80,
+              //           child: Icon(
+              //             Icons.reviews,
+              //           ),
+              //         ))
+              //   ],
+              // )
             ],
           ),
         ),
